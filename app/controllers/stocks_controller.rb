@@ -1,9 +1,13 @@
 class StocksController < ApplicationController
+    before_action :set_stock, only: [:show, :edit, :update, :destroy]
     before_action :authenticate_user!
 
     def index
         @stocks = Stock.all
-        
+    end
+
+    def show
+        @stock = Stock.find_by_id(params[:id])
     end
 
     def new
@@ -20,11 +24,23 @@ class StocksController < ApplicationController
         end
     end
 
-    def show
-        @stock = Stock.find_by_id(params[:id])
+    def edit
     end
 
+    def update
+        if @stock.update(stock_params)
+            redirect_to stock_path(@stock)
+        else
+            render :edit
+        end
+    end
+
+
     private
+
+    def set_stock
+        @stock = Stock.find_by_id(params[:id])
+    end
 
     def stock_params
         params.require(:stock).permit(:name, :ticker, :price)
