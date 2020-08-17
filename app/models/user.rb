@@ -1,10 +1,11 @@
 class User < ApplicationRecord
-  belongs_to :stocks_users
-  has_many :stocks, through: :stocks_users
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
           :recoverable, :rememberable, :validatable, :omniauthable, :omniauth_providers => [:facebook]
+
+  has_many :user_stocks
+  has_many :stocks, through: :user_stocks
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
