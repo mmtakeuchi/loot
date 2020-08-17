@@ -1,0 +1,15 @@
+<h1>Search Stock</h1>
+
+
+<%= form_with(url: "/stocks", method: "post") do %>
+  <%= label_tag :name %>
+  <%= text_field_tag :name %><br>
+
+  <%= label_tag :ticker %>
+  <%= text_field_tag :ticker %><br>
+
+  <%= label_tag :price %>
+  <%= text_field_tag :price %><br>
+
+  <%= submit_tag("Create Stock") %>
+<% end %>
