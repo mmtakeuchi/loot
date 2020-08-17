@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   has_many :user_stocks
   has_many :stocks, through: :user_stocks
+  accepts_nested_attributes_for :stocks
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|

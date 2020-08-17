@@ -11,9 +11,13 @@ class StocksController < ApplicationController
     end
 
     def create
-        @stock = Stock.new(name: params[:name], ticker: params[:ticker], price: params[:price])
-        @stock.save 
-        redirect_to stocks_path
+        @stock = current_user.stocks.build(stock_params)
+
+        if @stock.save 
+            redirect_to stocks_path
+        else
+            render :new
+        end
 
         # if @stock.save
         #     redirect_to stocks_path
@@ -25,6 +29,7 @@ class StocksController < ApplicationController
     private
 
     def stock_params
-        params.require(:stock).permits(:name, :ticker, :cost, :shares, :price, :market_cap, :volume, :avg_volume, :pe_ratio, :open, :previouse_close, :dollar_change, :percent_change, :ytd_change, :high, :low, :week_52_high, :week_52_low)
+        params.require(:stock).permit(:name, :ticker, :price)
+        # params.require(:stock).permits(:name, :ticker, :cost, :shares, :price, :market_cap, :volume, :avg_volume, :pe_ratio, :open, :previouse_close, :dollar_change, :percent_change, :ytd_change, :high, :low, :week_52_high, :week_52_low)
     end
 end
