@@ -5,3 +5,5 @@
 <div>
     <p><%= number_to_currency(@stock.price) %></p>
 </div>
+
+<%= button_to "Delete Stock", stock_path(@stock), method: "delete"%>
