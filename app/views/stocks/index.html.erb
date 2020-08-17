@@ -3,9 +3,9 @@
 <ul>
     <% @stocks.each do |stock| %>
         <li>
-            <%= stock.name %><br>
+            <%= link_to stock.name, stock_path(stock) %><br>
             <%= stock.ticker %><br>
-            $ <%= stock.price %><br>
+            <%= number_to_currency(stock.price) %><br>
         </li><br>
     <% end %>
 </ul>
